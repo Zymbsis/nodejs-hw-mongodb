@@ -38,12 +38,12 @@ export function setupServer() {
       const { contactId } = req.params;
       const contact = await getContactById(contactId);
 
-      if (!contact) {
-        return res.status(404).json({
-          status: 'fail',
-          message: `Contact with id ${contactId} not found!`,
-        });
-      }
+      // if (!contact) {
+      //   return res.status(404).json({
+      //     status: 'fail',
+      //     message: `Contact with id ${contactId} not found!`,
+      //   });
+      // }
 
       res.status(200).json({
         status: 'success',
@@ -57,9 +57,9 @@ export function setupServer() {
 
   app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).json({
-      status: 'error',
-      message: 'Internal Server Error',
+    res.status(404).json({
+      status: 'fail',
+      message: `Contact not found!`,
     });
   });
 
