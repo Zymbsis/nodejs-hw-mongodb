@@ -20,11 +20,11 @@ export function setupServer() {
 
   app.get('/contacts', async (req, res, next) => {
     try {
-      const students = await getAllContacts();
+      const contacts = await getAllContacts();
       res.status(200).json({
         status: 'success',
         message: 'Successfully found contacts!',
-        data: students,
+        data: contacts,
       });
     } catch (error) {
       next(error);
@@ -47,7 +47,10 @@ export function setupServer() {
         data: contact,
       });
     } catch (error) {
-      next(error);
+      res.status(500).json({
+        status: 'error',
+        message: `Id must be a 24 character hex string, 12 byte Uint8Array, or an integer`,
+      });
     }
   });
 
