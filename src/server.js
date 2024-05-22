@@ -2,7 +2,6 @@ import express from 'express';
 import pino from 'pino-http';
 import cors from 'cors';
 import { env } from './env.js';
-
 import { getAllContacts, getContactById } from './services/contacts.js';
 
 const PORT = Number(env('PORT', '3000'));
@@ -31,7 +30,7 @@ export function setupServer() {
     }
   });
 
-  app.get('/contacts/:contactId', async (req, res, next) => {
+  app.get('/contacts/:contactId', async (req, res) => {
     const { contactId } = req.params;
     try {
       const contact = await getContactById(contactId);
@@ -47,6 +46,7 @@ export function setupServer() {
         data: contact,
       });
     } catch (error) {
+      console.log(error);
       res.status(500).json({
         status: 'error',
         message: `Id must be a 24 character hex string, 12 byte Uint8Array, or an integer`,
