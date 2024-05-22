@@ -43,7 +43,7 @@ export function setupServer() {
         data: contact,
       });
     } else {
-      res.status(404).json({
+      res.status(502).json({
         message: 'Not found',
       });
     }
