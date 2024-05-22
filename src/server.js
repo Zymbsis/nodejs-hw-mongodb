@@ -1,11 +1,11 @@
 import express from 'express';
 import pino from 'pino-http';
 import cors from 'cors';
-import { env } from './env.js';
-import { getAllContacts } from './services/contacts.js';
-import { getContactById } from './services/contactById.js';
-
-const PORT = Number(env('PORT', '3000'));
+import { contactsController } from './controllers/contactsController.js';
+import { contactByIdController } from './controllers/contactByIdController.js';
+import { globalError } from './middlewares/globalError.js';
+import { nonExistentRoute } from './middlewares/nonExistentRoute.js';
+import { PORT } from './constants/envConstants.js';
 
 export function setupServer() {
   const app = express();
@@ -18,55 +18,11 @@ export function setupServer() {
     }),
   );
 
-  app.get('/contacts', async (req, res, next) => {
-    try {
-      const contacts = await getAllContacts();
-      res.status(200).json({
-        status: 'success',
-        message: 'Successfully found contacts!',
-        data: contacts,
-      });
-    } catch (error) {
-      next(error);
-    }
-  });
+  app.get('/contacts', contactsController);
+  app.get('/contacts/:contactId', contactByIdController);
 
-  app.get('/contacts/:contactId', async (req, res) => {
-    const { contactId } = req.params;
-    try {
-      const contact = await getContactById(contactId);
-      if (!contact) {
-        res.status(404).json({
-          status: 'fail',
-          message: `Contact with id ${contactId} not found!`,
-        });
-      }
-      res.status(200).json({
-        status: 'success',
-        message: `Successfully found contact with id ${contactId}!`,
-        data: contact,
-      });
-    } catch (error) {
-      console.log(error);
-      res.status(500).json({
-        status: 'error',
-        message: `Id must be a 24 character hex string, 12 byte Uint8Array, or an integer`,
-      });
-    }
-  });
-
-  app.use((err, req, res, next) => {
-    res.status(500).json({
-      status: 'error',
-      message: 'Internal Server Error',
-    });
-  });
-
-  app.use('*', (req, res) => {
-    res.status(404).json({
-      message: 'Not found',
-    });
-  });
+  app.use(globalError);
+  app.use('*', nonExistentRoute);
 
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
