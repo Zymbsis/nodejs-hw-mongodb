@@ -18,24 +18,22 @@ export function setupServer() {
     }),
   );
 
-  // app.get('/', (req, res) => {
-  //   res.json({
-  //     message: 'Hello world!',
-  //   });
-  // });
-
-  app.get('/contacts', async (req, res) => {
-    const students = await getAllContacts();
-    res.status(200).json({
-      status: 'success',
-      message: 'Successfully found contacts!',
-      data: students,
-    });
+  app.get('/contacts', async (req, res, next) => {
+    try {
+      const students = await getAllContacts();
+      res.status(200).json({
+        status: 'success',
+        message: 'Successfully found contacts!',
+        data: students,
+      });
+    } catch (error) {
+      next(error);
+    }
   });
 
   app.get('/contacts/:contactId', async (req, res, next) => {
+    const { contactId } = req.params;
     try {
-      const { contactId } = req.params;
       const contact = await getContactById(contactId);
 
       res.status(200).json({
@@ -44,15 +42,17 @@ export function setupServer() {
         data: contact,
       });
     } catch (error) {
-      next(error);
+      res.status(404).json({
+        status: 'fail',
+        message: `Contact with id ${contactId} not found!`,
+      });
     }
   });
 
   app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(404).json({
-      status: 'fail',
-      message: `Contact not found!`,
+    res.status(500).json({
+      status: 'error',
+      message: 'Internal Server Error',
     });
   });
 
