@@ -5,9 +5,9 @@ import { env } from './env.js';
 import { initMongoConnection } from './db/initMongoConnection.js';
 import { getAllContacts, getContactById } from './services/contacts.js';
 
-const PORT = (await initMongoConnection()) || Number(env('PORT', '3000'));
-
-export function setupServer() {
+await initMongoConnection();
+const PORT = Number(env('PORT', '3000'));
+export async function setupServer() {
   const app = express();
   app.use(cors());
   app.use(
