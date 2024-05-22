@@ -2,11 +2,11 @@ import express from 'express';
 import pino from 'pino-http';
 import cors from 'cors';
 import { env } from './env.js';
-import { initMongoConnection } from './db/initMongoConnection.js';
+
 import { getAllContacts, getContactById } from './services/contacts.js';
 
-await initMongoConnection();
 const PORT = Number(env('PORT', '3000'));
+
 export function setupServer() {
   const app = express();
   app.use(cors());
