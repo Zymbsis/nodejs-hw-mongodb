@@ -18,11 +18,11 @@ export function setupServer() {
     }),
   );
 
-  app.get('/', (req, res) => {
-    res.json({
-      message: 'Hello world!',
-    });
-  });
+  // app.get('/', (req, res) => {
+  //   res.json({
+  //     message: 'Hello world!',
+  //   });
+  // });
 
   app.get('/contacts', async (req, res) => {
     const students = await getAllContacts();
@@ -37,13 +37,6 @@ export function setupServer() {
     try {
       const { contactId } = req.params;
       const contact = await getContactById(contactId);
-
-      // if (!contact) {
-      //   return res.status(404).json({
-      //     status: 'fail',
-      //     message: `Contact with id ${contactId} not found!`,
-      //   });
-      // }
 
       res.status(200).json({
         status: 'success',
