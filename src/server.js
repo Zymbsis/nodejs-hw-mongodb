@@ -7,7 +7,7 @@ import { getAllContacts, getContactById } from './services/contacts.js';
 
 await initMongoConnection();
 const PORT = Number(env('PORT', '3000'));
-export async function setupServer() {
+export function setupServer() {
   const app = express();
   app.use(cors());
   app.use(
