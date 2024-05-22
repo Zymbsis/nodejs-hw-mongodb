@@ -43,11 +43,11 @@ export function setupServer() {
     });
   });
 
-  app.get('/contacts/:contactId', async (error, req, res, next) => {
-    res.status(404).json({
-      message: 'Not found',
-    });
-  });
+  // app.get('/contacts/:contactId', async (error, req, res, next) => {
+  //   res.status(404).json({
+  //     message: 'Not found',
+  //   });
+  // });
 
   app.use('*', (req, res) => {
     res.status(404).json({
