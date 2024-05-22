@@ -32,6 +32,7 @@ export function setupServer() {
       data: students,
     });
   });
+
   app.get('/contacts/:contactId', async (req, res, next) => {
     try {
       const { contactId } = req.params;
@@ -52,6 +53,14 @@ export function setupServer() {
     } catch (error) {
       next(error);
     }
+  });
+
+  app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({
+      status: 'error',
+      message: 'Internal Server Error',
+    });
   });
 
   app.use('*', (req, res) => {
