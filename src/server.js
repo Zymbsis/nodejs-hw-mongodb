@@ -48,6 +48,7 @@ export function setupServer() {
     res.status(404).json({
       message: 'Not found',
     });
+    next();
   });
 
   app.use('*', (req, res) => {
