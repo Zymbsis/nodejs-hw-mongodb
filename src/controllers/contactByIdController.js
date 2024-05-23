@@ -5,8 +5,8 @@ export const contactByIdController = async (req, res) => {
   try {
     const contact = await getContactById(contactId);
     if (!contact) {
-      res.status(404).json({
-        status: 'fail',
+      return res.status(404).json({
+        status: 404,
         message: `Contact with id ${contactId} not found!`,
       });
     }
