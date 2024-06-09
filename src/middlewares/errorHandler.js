@@ -6,7 +6,10 @@ export const errorHandler = (err, req, res, next) => {
       status: err.status,
       message: err.message,
       data: {
-        message: err.errors.map((item) => item.message).join(', '),
+        message:
+          err.status === 400
+            ? err.errors.map((item) => item.message)
+            : err.message,
       },
     });
     return;
