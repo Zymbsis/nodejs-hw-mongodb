@@ -5,7 +5,12 @@ export const errorHandler = (err, req, res, next) => {
     res.status(err.status).json({
       status: err.status,
       message: err.message,
-      data: { message: 'Contact not found' },
+      data: {
+        message:
+          err.status === 400
+            ? err.errors.map((item) => item.message)
+            : err.message,
+      },
     });
     return;
   }
