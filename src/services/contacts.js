@@ -2,17 +2,19 @@ import { SORT_ORDER } from '../constants/sortConstants.js';
 import { Contact } from '../db/contactModel.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 
-export const getAllContacts = async ({
-  page = 1,
-  perPage = 10,
-  sortOrder = SORT_ORDER.ASC,
-  sortBy = '_id',
-  filter = {},
-  id,
-}) => {
+export const getAllContacts = async (
+  {
+    page = 1,
+    perPage = 10,
+    sortOrder = SORT_ORDER.ASC,
+    sortBy = '_id',
+    filter = {},
+  },
+  userId,
+) => {
   const limit = perPage;
   const skip = (page - 1) * perPage;
-  const contactsQuery = Contact.find({ userId: id });
+  const contactsQuery = Contact.find({ userId: userId });
 
   if (filter.contactType) {
     contactsQuery.where('contactType').equals(filter.contactType);

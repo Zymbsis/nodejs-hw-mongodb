@@ -16,14 +16,16 @@ export const getContactsController = async (req, res) => {
   const filter = parseFilterParams(req.query);
   const { _id } = req.user;
 
-  const contacts = await getAllContacts({
-    page,
-    perPage,
-    sortBy,
-    sortOrder,
-    filter,
+  const contacts = await getAllContacts(
+    {
+      page,
+      perPage,
+      sortBy,
+      sortOrder,
+      filter,
+    },
     _id,
-  });
+  );
 
   res.json({
     status: 200,
