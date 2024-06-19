@@ -14,7 +14,6 @@ import {
   updateContactSchema,
 } from '../validation/contacts.js';
 import { authenticate } from '../middlewares/authenticate.js';
-import { addUserId } from '../middlewares/addUserId.js';
 
 const router = Router();
 router.use(authenticate);
@@ -23,7 +22,7 @@ router.get('/', ctrlWrapper(getContactsController));
 router.get('/:contactId', ctrlWrapper(getContactByIdController));
 router.post(
   '',
-  addUserId(),
+
   validateBody(createContactSchema),
   ctrlWrapper(createContactController),
 );
