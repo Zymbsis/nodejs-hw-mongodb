@@ -10,7 +10,7 @@ import { SMTP } from '../constants/smtpConstants.js';
 import handlebars from 'handlebars';
 import path from 'node:path';
 import fs from 'node:fs/promises';
-import { TEMPLATES_DIR } from '../constants/index.js';
+import { TEMPLATES_DIR } from '../constants/pathConstants.js';
 
 export const registerUser = async (credentials) => {
   const user = await UserModel.findOne({
