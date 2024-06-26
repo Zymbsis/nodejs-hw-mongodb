@@ -4,6 +4,8 @@ import { saveFileToCloudinary } from './saveFileToCloudinary.js';
 import { saveFileToUploadDir } from './saveFileToUploadDir.js';
 
 export const photoUploadDestination = async (photo) => {
+  if (!photo) return;
+
   let photoUrl;
   if (photo) {
     if (env(CLOUDINARY.ENABLE_CLOUDINARY) === 'true') {
