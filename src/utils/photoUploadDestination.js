@@ -7,12 +7,12 @@ export const photoUploadDestination = async (photo) => {
   if (!photo) return;
 
   let photoUrl;
-  if (photo) {
-    if (env(CLOUDINARY.ENABLE_CLOUDINARY) === 'true') {
-      photoUrl = await saveFileToCloudinary(photo);
-    } else {
-      photoUrl = await saveFileToUploadDir(photo);
-    }
+
+  if (env(CLOUDINARY.ENABLE_CLOUDINARY) === 'true') {
+    photoUrl = await saveFileToCloudinary(photo);
+  } else {
+    photoUrl = await saveFileToUploadDir(photo);
   }
+
   return photoUrl;
 };
