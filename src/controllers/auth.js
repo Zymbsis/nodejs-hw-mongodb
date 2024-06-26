@@ -1,4 +1,3 @@
-import { ONE_MONTH } from '../constants/sessionConstants.js';
 import {
   loginUser,
   logoutUser,
@@ -7,6 +6,7 @@ import {
   requestResetToken,
   resetPassword,
 } from '../services/auth.js';
+import { setupSession } from '../utils/setupSession.js';
 
 export const registerUserController = async (req, res) => {
   const user = await registerUser(req.body);
@@ -14,17 +14,6 @@ export const registerUserController = async (req, res) => {
     status: 201,
     message: 'Successfully registered a user!',
     data: user,
-  });
-};
-
-const setupSession = (res, session) => {
-  res.cookie('refreshToken', session.refreshToken, {
-    httpOnly: true,
-    expires: new Date(Date.now() + ONE_MONTH),
-  });
-  res.cookie('sessionId', session._id, {
-    httpOnly: true,
-    expires: new Date(Date.now() + ONE_MONTH),
   });
 };
 

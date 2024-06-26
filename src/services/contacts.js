@@ -14,7 +14,7 @@ export const getAllContacts = async (
 ) => {
   const limit = perPage;
   const skip = (page - 1) * perPage;
-  const contactsQuery = Contact.find({ userId: userId });
+  const contactsQuery = Contact.find({ userId });
 
   if (filter.contactType) {
     contactsQuery.where('contactType').equals(filter.contactType);
@@ -41,7 +41,7 @@ export const getAllContacts = async (
 };
 
 export const getContactById = async (contactId, userId) => {
-  const contact = await Contact.findOne({ _id: contactId, userId: userId });
+  const contact = await Contact.findOne({ _id: contactId, userId });
   return contact;
 };
 
@@ -57,7 +57,7 @@ export const updateContact = async (
   options = {},
 ) => {
   const rawResult = await Contact.findOneAndUpdate(
-    { _id: contactId, userId: userId },
+    { _id: contactId, userId },
     payload,
     {
       new: true,
@@ -76,7 +76,7 @@ export const updateContact = async (
 export const deleteContact = async (contactId, userId) => {
   const contact = await Contact.findOneAndDelete({
     _id: contactId,
-    userId: userId,
+    userId,
   });
 
   return contact;
