@@ -38,6 +38,7 @@ export const getContactsController = async (req, res) => {
 export const getContactByIdController = async (req, res, next) => {
   const { contactId } = req.params;
   const { _id } = req.user;
+
   const contact = await getContactById(contactId, _id);
   if (!contact) {
     next(createHttpError(404, 'Contact not found'));
@@ -53,6 +54,7 @@ export const getContactByIdController = async (req, res, next) => {
 
 export const createContactController = async (req, res) => {
   const userId = req.user._id;
+
   const photo = await photoUploadDestination(req.file);
   const payload = { ...req.body, userId, photo };
   const contact = await createContact(payload);

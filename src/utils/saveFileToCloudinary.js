@@ -2,6 +2,7 @@ import cloudinary from 'cloudinary';
 import { env } from '../env.js';
 import { CLOUDINARY } from '../constants/cloudinaryConstants.js';
 import { unlink } from 'node:fs/promises';
+
 import { saveFileToUploadDir } from './saveFileToUploadDir.js';
 
 cloudinary.v2.config({
@@ -17,7 +18,6 @@ export const saveFileToCloudinary = async (file) => {
     await unlink(file.path);
     return response.secure_url;
   } catch {
-    const photoUrl = await saveFileToUploadDir(file);
-    return photoUrl;
+    return await saveFileToUploadDir(file);
   }
 };
