@@ -30,6 +30,7 @@ export const createContactSchema = Joi.object({
     'string.base': 'contactType should be a string',
     'any.only': 'contactType should be one of [work, home, personal]',
   }),
+  photo: Joi.string(),
 });
 
 export const updateContactSchema = Joi.object({
@@ -60,4 +61,5 @@ export const updateContactSchema = Joi.object({
     'string.base': 'contactType should be a string',
     'any.only': 'contactType should be one of [work, home, personal]',
   }),
+  photo: Joi.string(),
 });

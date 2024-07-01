@@ -2,7 +2,7 @@ tags:
   - Contacts
 summary: Get list of contacts
 operationId: getAllContacts
-description: 'Get list of contacts with this endpoint. Notice: If the list of contacts is empty or no contacts are found by a certain parameter, the request will still have the status "success" and return an empty array.'
+description: 'Get list of contacts with this endpoint. Notice: If the list of contacts is empty or no contacts are found by a certain parameter, the request will still have the status "success" and "data" will be an empty array.'
 security:
   - bearerAuth: []
 parameters:

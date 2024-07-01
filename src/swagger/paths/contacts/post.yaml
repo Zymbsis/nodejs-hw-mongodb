@@ -45,7 +45,7 @@ requestBody:
             format: binary
 responses:
   '201':
-    description: Successfully created a contact
+    description: Successfully created a contact!
     content:
       application/json:
         schema:
@@ -63,8 +63,10 @@ responses:
               example: Successfully created a contact!
             data:
               type: object
-              $ref: ../../components/schemas/contact.yaml
+              $ref: '../../components/schemas/contact.yaml'
   '401':
     $ref: ../../components/responses/401.yaml
+  '400':
+    $ref: ../../components/responses/400.yaml
   '500':
     $ref: '../../components/responses/500.yaml'
