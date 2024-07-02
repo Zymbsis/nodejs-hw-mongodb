@@ -23,10 +23,6 @@ requestBody:
             description: Contact`s phone number. Phone number should be a string containing between 3 and 20 characters
             type: string
             example: '+380 44 490 3660'
-          userId:
-            description: User`s id. The UserId field is automatically added when a contact is created. If you try to pass this field, it will result in an error
-            type: string
-            example: 65e4decdd286b30065d54af9
           email:
             description: Contact`s email. Email should be a valid email address, a string, and contain between 3 and 50 characters
             type: string
