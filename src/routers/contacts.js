@@ -20,7 +20,6 @@ const router = Router();
 router.use(authenticate);
 
 router.get('/', ctrlWrapper(getContactsController));
-router.get('/:contactId', ctrlWrapper(getContactByIdController));
 router.post(
   '/',
   upload.single('photo'),
@@ -28,6 +27,7 @@ router.post(
   ctrlWrapper(createContactController),
 );
 
+router.get('/:contactId', ctrlWrapper(getContactByIdController));
 router.patch(
   '/:contactId',
   upload.single('photo'),
