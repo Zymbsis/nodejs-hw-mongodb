@@ -7,7 +7,7 @@ export const errorHandler = (err, req, res, next) => {
       message: err.message,
       data: {
         message:
-          err.status === 400 && Array.isArray(err.message)
+          err.status === 400 && Array.isArray(err.errors)
             ? err.errors.map((item) => item.message)
             : err.message,
       },
