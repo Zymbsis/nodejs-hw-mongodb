@@ -1,0 +1,73 @@
+tags:
+  - Contacts
+summary: Update contact
+operationId: updateContact
+description: 'Update a contact with payload'
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: id
+    required: true
+    schema:
+      type: string
+      example: '65ca67e7ae7f10c88b598384'
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        properties:
+          name:
+            description: Contacts`s name. Name should be a string containing between 3 and 20 characters
+            type: string
+            example: 'Queen Elizabeth'
+          phoneNumber:
+            description: Contact`s phone number. Phone number should be a string containing between 3 and 20 characters
+            type: string
+            example: '+380 44 490 3660'
+          email:
+            description: Contact`s email. Email should be a valid email address, a string, and contain between 3 and 50 characters
+            type: string
+            example: 'buckingham_palace@london.uk'
+          isFavourite:
+            description: Indicates whether the contact is a favourite. Default value is "false"
+            type: boolean
+            example: true
+          contactType:
+            description: Contact type. Can be "work", "home", or "personal". Default value is "personal"
+            type: string
+            enum: ['work', 'home', 'personal']
+          photo:
+            description: Contact`s photo. The file should be uploaded as an image. Binary format is not recommended
+            type: string
+            format: binary
+responses:
+  '200':
+    description: Successfully patched a contact!
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully patched a contact!
+            data:
+              type: object
+              $ref: '../../../components/schemas/contact.yaml'
+  '401':
+    $ref: ../../../components/responses/401.yaml
+  '500':
+    $ref: ../../../components/responses/500.yaml
+  '400':
+    $ref: ../../../components/responses/400.yaml
+  '404':
+    $ref: ../../../components/responses/404.yaml
